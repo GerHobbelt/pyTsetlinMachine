@@ -10,7 +10,7 @@
 static uint64_t const multiplier = 6364136223846793005u;
 static uint64_t       mcg_state  = 0xcafef00dd15ea5e5u;
 
-inline static uint32_t pcg32_fast() {
+inline static uint32_t pcg32_fast(void) {
     uint64_t x = mcg_state;
     unsigned int count = (unsigned int) (x >> 61);	// 61 = 64 - 3
 
