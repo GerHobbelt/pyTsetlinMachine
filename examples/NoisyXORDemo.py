@@ -1,11 +1,13 @@
+import os
 from pyTsetlinMachine.tm import MultiClassTsetlinMachine
 import numpy as np 
 
-train_data = np.loadtxt("NoisyXORTrainingData.txt")
+this_dir, this_filename = os.path.split(__file__)
+train_data = np.loadtxt(os.path.join(this_dir, "NoisyXORTrainingData.txt"))
 X_train = train_data[:,0:-1]
 Y_train = train_data[:,-1]
 
-test_data = np.loadtxt("NoisyXORTestData.txt")
+test_data = np.loadtxt(os.path.join(this_dir, "NoisyXORTestData.txt"))
 X_test = test_data[:,0:-1]
 Y_test = test_data[:,-1]
 
@@ -15,7 +17,7 @@ tm.fit(X_train, Y_train, epochs=200)
 
 print("Accuracy:", 100*(tm.predict(X_test) == Y_test).mean())
 
-print("Prediction: x1 = 1, x2 = 0, ... -> y = %d" % (tm.predict(np.array([[1,0,1,0,1,0,1,1,1,1,0,0]]))))
-print("Prediction: x1 = 0, x2 = 1, ... -> y = %d" % (tm.predict(np.array([[0,1,1,0,1,0,1,1,1,1,0,0]]))))
-print("Prediction: x1 = 0, x2 = 0, ... -> y = %d" % (tm.predict(np.array([[0,0,1,0,1,0,1,1,1,1,0,0]]))))
-print("Prediction: x1 = 1, x2 = 1, ... -> y = %d" % (tm.predict(np.array([[1,1,1,0,1,0,1,1,1,1,0,0]]))))
+print("Prediction: x1 = 1, x2 = 0, ... -> y = %d" % tm.predict(np.array([[1,0,1,0,1,0,1,1,1,1,0,0]]))[0])
+print("Prediction: x1 = 0, x2 = 1, ... -> y = %d" % tm.predict(np.array([[0,1,1,0,1,0,1,1,1,1,0,0]]))[0])
+print("Prediction: x1 = 0, x2 = 0, ... -> y = %d" % tm.predict(np.array([[0,0,1,0,1,0,1,1,1,1,0,0]]))[0])
+print("Prediction: x1 = 1, x2 = 1, ... -> y = %d" % tm.predict(np.array([[1,1,1,0,1,0,1,1,1,1,0,0]]))[0])
